@@ -106,19 +106,20 @@ Agreement to better than one part in a million across both implementations, and 
 ## Repository structure
 
 ```
-qed-uehling/
+DATASOFT/
 ├── mathematica/
 │   └── uehling_potential.nb          # Mathematica notebook
 ├── python/
 │   ├── uehling.py                    # core module: V_Uehling(r)
-│   └── lamb_shift.py                 # perturbation theory: ΔE_2s
-├── notebooks/
-│   └── validation.ipynb              # cross-validation, Python vs. Mathematica
+│   ├── lamb_shift.py                 # perturbation theory: ΔE_2s
+│   ├── validate_uehling.py           # cross-validation, Python vs. Mathematica
+│   ├── plot.py
+│   └── lamb_shift_analysis.py
 ├── data/
 │   ├── uehling_data.csv              # exported from Mathematica
 │   └── uehling_ratio.csv
 ├── figures/
-│   ├── uehling_potential.png         # main result figure (two panels)
+│   ├── uehling_potential.png         # main result figure
 │   └── lamb_shift_analysis.png       # wavefunction overlap analysis
 └── README.md
 ```
