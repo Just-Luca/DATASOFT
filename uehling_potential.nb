@@ -1,0 +1,82 @@
+(* Natural units: hbar = c = 1 *)
+(* All lengths in units of 1/m_e, energies in m_e *)
+
+alpha = 1/137.036;   (* fine structure constant *)
+me = 1;              (* electron mass = 1 in natural units *)
+
+(* Integrand function *)
+integrand[u_, r_] := Exp[-2 r u] * (1 + 1/(2 u^2)) * Sqrt[u^2 - 1] / u^2
+
+(* Uehling correction (the integral part only, without -alpha/r prefactor) *)
+uehlingIntegral[r_?NumericQ] :=
+  NIntegrate[integrand[u, r], {u, 1, Infinity},
+    Method -> "GaussKronrod",
+    AccuracyGoal -> 8,
+    MaxRecursion -> 20]
+
+(* Full Uehling potential *)
+VUehling[r_?NumericQ] :=
+  -(alpha / r) * (2 alpha / (3 Pi)) * uehlingIntegral[r]
+
+(* Classical Coulomb for comparison *)
+VCoulomb[r_] := -(alpha / r)
+
+(* Short-range approximation (r << 1) *)
+VShort[r_] :=
+  -(alpha/r) * (2 alpha/(3 Pi)) * (Log[1/r] - EulerGamma + 5/6)
+
+(* Long-range approximation (r >> 1) *)
+VLong[r_] :=
+  -(alpha/r) * (alpha / (2 Sqrt[Pi])) * (3/2) * Exp[-2r] / (2r)^(3/2)
+
+(* Spot-check at a few values *)
+r0 = 0.01;
+Print["Numerical: ", VUehling[r0]]
+Print["Short-range approx: ", N[VShort[r0]]]
+
+r1 = 5.0;
+Print["Numerical: ", VUehling[r1]]
+Print["Long-range approx: ", N[VLong[r1]]]
+
+(* Compute over a log-spaced grid *)
+rValues = Table[10^x, {x, -2, 1, 0.05}];
+
+(* This takes ~30 seconds — each NIntegrate call is independent *)
+data = {#, VUehling[#]} & /@ rValues;
+coulombData = {#, VCoulomb[#]} & /@ rValues;
+
+(* Ratio: how large is the correction relative to Coulomb? *)
+ratioData = {#, VUehling[#] / VCoulomb[#]} & /@ rValues;
+
+(* Plot 1: potentials on log scale *)
+ListLogLogPlot[
+  {Abs /@ coulombData, Abs /@ data},
+  Joined -> True,
+  PlotStyle -> {Directive[Gray, Dashed], Directive[RGBColor[0.33, 0.29, 0.72], Thick]},
+  PlotLegends -> {"Coulomb |V|", "Coulomb + Uehling |V|"},
+  AxesLabel -> {"r (1/mₑ)", "|V(r)| (mₑ)"},
+  PlotLabel -> "QED-corrected vs Coulomb potential",
+  GridLines -> Automatic,
+  Frame -> True
+]
+
+(* Plot 2: fractional correction *)
+ListLogLinearPlot[
+  ratioData,
+  Joined -> True,
+  PlotStyle -> Directive[RGBColor[0.33, 0.29, 0.72], Thick],
+  AxesLabel -> {"r (1/mₑ)", "V_Uehling / V_Coulomb"},
+  PlotLabel -> "Fractional QED correction",
+  GridLines -> Automatic,
+  Frame -> True
+]
+
+(* Export the data as CSV for Python cross-validation in Phase 3 *)
+Export["uehling_data.csv",
+  Prepend[data, {"r_over_compton", "V_Uehling_natural_units"}]
+]
+
+(* Save the ratio data too *)
+Export["uehling_ratio.csv",
+  Prepend[ratioData, {"r_over_compton", "ratio_uehling_to_coulomb"}]
+]
