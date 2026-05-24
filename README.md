@@ -3,7 +3,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/Just-Luca/DATASOFT) 
 ![GitHub contributors](https://img.shields.io/github/contributors/Just-Luca/DATASOFT) 
 ![GitHub stars](https://img.shields.io/github/stars/Just-Luca/DATASOFT?style=social) 
-
+![GitHub license](https://img.shields.io/github/license/Just-Luca/DATASOFT) 
 
 A numerical study of the leading quantum electrodynamics (QED) correction to the Coulomb potential, implemented in both **Mathematica** and **Python**, with a first-order perturbative estimate of the Uehling contribution to the hydrogen 2s Lamb shift.
 
