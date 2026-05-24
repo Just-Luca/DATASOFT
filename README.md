@@ -98,11 +98,11 @@ The Python results are compared point-by-point against the Mathematica CSV expor
 
 | Metric | Value |
 |---|---|
-| Max relative error (Python vs. Mathematica) | < 1 × 10⁻⁶ |
-| Mean relative error | < 1 × 10⁻⁸ |
+| Max relative error (Python vs. Mathematica) | ~ 2 × 10⁻⁶ |
+| Mean relative error | ~ 3 × 10⁻⁸ |
 | Uehling Lamb shift (this work) | −26.9 MHz |
 | Known value (Uehling contribution, 2s₁/₂) | −27.2 MHz |
-| Deviation | ~1.15% |
+| Deviation | ~ 1.15% |
 
 Agreement to better than one part in a million across both implementations, and within 0.4% of the known physical result, confirms that the numerics are correct.
 
