@@ -65,7 +65,7 @@ This integral has no closed form and is evaluated numerically. The result is the
 
 ## Implementation
 
-### Mathematica (`mathematica/uehling_potential.nb`)
+### Mathematica ([`mathematica/uehling_potential.nb`](mathematica/uehling_potential.nb))
 
 The Uehling integral is evaluated with `NIntegrate` using the `GaussKronrod` method. The notebook:
 
@@ -77,17 +77,17 @@ The Uehling integral is evaluated with `NIntegrate` using the `GaussKronrod` met
 
 The `?NumericQ` pattern guard on all functions that wrap `NIntegrate` is essential — without it, Mathematica attempts symbolic evaluation and fails.
 
-### Python (`python/uehling.py`, `python/lamb_shift.py`)
+### Python ([`python/uehling.py`](python/uehling.py), [`python/lamb_shift.py`](python/lamb_shift.py))
 
 The Python implementation uses `scipy.integrate.quad` to evaluate the same integral independently. The module is structured for reuse: pure functions with docstrings, vectorized wrappers for array inputs, and the asymptotic approximations as separate, testable functions.
 
-The Lamb shift calculation (`lamb_shift.py`) evaluates the perturbation theory integral using `quad` with split-point hints near $r = 0$, where the Uehling potential is sharpest and the integrand structure requires guidance for the adaptive integrator.
+The Lamb shift calculation ([`lamb_shift.py`](lamb_shift.py)) evaluates the perturbation theory integral using `quad` with split-point hints near $r = 0$, where the Uehling potential is sharpest and the integrand structure requires guidance for the adaptive integrator.
 
 Unit conversion chain:
 - Natural units ($m_e = 1$) → meV: multiply by $m_e c^2 = 510{,}998.95\,\text{meV}$
 - meV → MHz: multiply by $241.799\,\text{MHz/meV}$
 
-### Cross-validation (`notebooks/validation.ipynb`)
+### Cross-validation ([`python/validate_uehling.py`](python/validate_uehling.py))
 
 The Python results are compared point-by-point against the Mathematica CSV export across the full $r$ grid.
 
@@ -130,14 +130,14 @@ DATASOFT/
 
 ### QED-corrected potential
 
-The two-panel figure (`figures/uehling_potential.png`) shows:
+The two-panel figure ([`figures/uehling_potential.png`](figures/uehling_potential.png)) shows:
 
 - **Top panel**: $|V_\text{Coulomb}(r)|$ and $|V_\text{Coulomb}(r) + V_\text{Uehling}(r)|$ on a log-log scale. The two lines are indistinguishable at large $r$ and diverge slightly at small $r$, where the QED correction is strongest.
 - **Bottom panel**: the fractional correction $V_\text{Uehling}(r) / V_\text{Coulomb}(r)$ on a semilog scale. The correction peaks near $r \sim 0.01/m_e$ and falls off rapidly in both directions.
 
 ### Lamb shift analysis
 
-The three-panel figure (`figures/lamb_shift_analysis.png`) shows the 2s radial probability density, the Uehling potential at short range, and the overlap integrand $|\psi_{2s}|^2 V_\text{Uehling}(r) r^2$ whose integral gives $\Delta E_{2s}$. The overlap integrand is sharply peaked near the origin, confirming that the energy shift is driven entirely by the short-range behavior of the potential.
+The three-panel figure ([`figures/lamb_shift_analysis.png`](figures/lamb_shift_analysis.png)) shows the 2s radial probability density, the Uehling potential at short range, and the overlap integrand $|\psi_{2s}|^2 V_\text{Uehling}(r) r^2$ whose integral gives $\Delta E_{2s}$. The overlap integrand is sharply peaked near the origin, confirming that the energy shift is driven entirely by the short-range behavior of the potential.
 
 ---
 
@@ -148,9 +148,9 @@ The three-panel figure (`figures/lamb_shift_analysis.png`) shows the 2s radial p
 numpy
 scipy
 matplotlib
-jupyter
+pandas
 ```
-Install with: `pip install numpy scipy matplotlib jupyter`
+Install with: `pip install numpy scipy matplotlib pandas`
 
 ### Mathematica
 Wolfram Mathematica 12 or later. The notebook uses only built-in functions (`NIntegrate`, `ListLogLogPlot`, `Export`).
