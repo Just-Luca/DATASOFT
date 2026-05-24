@@ -64,7 +64,7 @@ Because the Uehling potential is so short-range, it acts as a perturbation only 
 
 $$\Delta E_{2s} = \langle 2s | V_\text{Uehling}(r) | 2s \rangle = \int_0^\infty |\psi_{2s}(r)|^2\, V_\text{Uehling}(r)\, r^2\, dr$$
 
-This integral has no closed form and is evaluated numerically. The result is the Uehling contribution to the well-known **Lamb shift** — the experimentally observed splitting between the 2s$_{1/2}$ and 2p$_{1/2}$ levels of hydrogen (which are degenerate in the Dirac equation but split by QED effects).
+This integral has no closed form and is evaluated numerically. The result is the Uehling contribution to the well-known **Lamb shift** — the experimentally observed splitting between the $2s_{1/2}$ and $2p_{1/2}$ levels of hydrogen (which are degenerate in the Dirac equation but split by QED effects).
 
 ---
 
@@ -98,8 +98,8 @@ The Python results are compared point-by-point against the Mathematica CSV expor
 
 | Metric | Value |
 |---|---|
-| Max relative error (Python vs. Mathematica) | ~ 2 × 10⁻⁶ |
-| Mean relative error | ~ 3 × 10⁻⁸ |
+| Max relative error (Python vs. Mathematica) | ~ 2 × $10^{-3}$ |
+| Mean relative error | ~ 3 × $10^{-4}$ |
 | Uehling Lamb shift (this work) | −26.9 MHz |
 | Known value (Uehling contribution, 2s₁/₂) | −27.2 MHz |
 | Deviation | ~ 1.15% |
